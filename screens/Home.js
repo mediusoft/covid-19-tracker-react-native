@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { Text, ToastAndroid, StyleSheet, View, Animated, Image, Dimensions, ScrollView, TouchableOpacity, Button, TouchableHighlight } from 'react-native'
+import React from 'react'
+import { Text, ToastAndroid, StyleSheet, View, Image, Dimensions, TouchableHighlight } from 'react-native'
 import { Dropdown } from 'react-native-material-dropdown';
 import PTRView from 'react-native-pull-to-refresh';
 import axios from 'axios';
@@ -9,12 +9,9 @@ import * as theme from '../Theme';
 import { getValue } from '../utils/apiHelper';
 import { dateFormat } from '../utils/dateTimeHelper';
 
-const { width, height } = Dimensions.get('screen');
-
-
+const { height } = Dimensions.get('screen');
 
 class Home extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -34,18 +31,7 @@ class Home extends React.Component {
         });
     }
 
-
-    handleBackButton() {
-        ToastAndroid.show('apps by @mediusoft \n API by @mathdroid', ToastAndroid.SHORT);
-        return true;
-    }
-
-    componentWillUnmount() {
-        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
-    }
-
     componentDidMount() {
-        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
 
         //get all countries
         axios.get('https://covid19.mathdro.id/api')
@@ -69,7 +55,6 @@ class Home extends React.Component {
                 const data = res.data;
                 this.setState({ stat_az: data });
             })
-
     }
 
     renderGlobalStatus = () => {
@@ -121,7 +106,6 @@ class Home extends React.Component {
                         itemColor={theme.colors.hitam}
                         selectedItemColor={theme.colors.hitam}
                         textColor="#FFF"
-                        label="- select -"
                         fontSize={16}
                         data={this.state.countries}
                         onChangeText={value => this.onChangeHandler(value)}
@@ -144,7 +128,7 @@ class Home extends React.Component {
 
     renderAzerbaijan = () => {
         const data = this.state.stat_az;
-        console.log("data",data)
+        console.log("data", data)
         return (
             <View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>

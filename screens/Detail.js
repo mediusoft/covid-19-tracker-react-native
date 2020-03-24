@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, StyleSheet, View, Image, Dimensions, BackHandler, ToastAndroid } from 'react-native'
+import { Text, StyleSheet, View, Image, BackHandler, ToastAndroid } from 'react-native'
 import PTRView from 'react-native-pull-to-refresh/index';
 import Loading from 'react-native-whc-loading'
 import axios from 'axios';
@@ -10,7 +10,6 @@ import { getValue } from '../utils/apiHelper';
 import { dateFormat } from '../utils/dateTimeHelper';
 
 class Detail extends React.Component {
-
     static navigationOptions = ({ route }) => ({
         title: `${route.selected}`,
         headerTitleStyle: { textAlign: 'center', alignSelf: 'center' },
