@@ -12,6 +12,6 @@
         "selectCountry": "Выбрать страну"
     },
     "detail": {
-        "lastUpdated": "Последнее обновление"
+        "lastUpdate": "Последнее обновление"
     }
 }
