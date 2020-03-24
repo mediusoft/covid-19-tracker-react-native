@@ -35,8 +35,8 @@ class Splash extends React.Component {
                 <View style={styles.conSplash}>
                     <Image source={require('../assets/images/bacteria.png')} style={styles.icnErr} />
                     <Text style={styles.title}>Covid-19 Tracker</Text>
-                    <Text style={styles.subTitle}>Made with ♥ @rbayuokt</Text>
-                    <Text style={styles.subTitle}>in Cimahi</Text>
+                    <Text style={styles.subTitle}>Made with ♥ Mediusoft</Text>
+                    <Text style={styles.subTitle}>#evdəqal</Text>
                 </View>
             </View>
         )

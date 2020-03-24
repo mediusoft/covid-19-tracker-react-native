@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Corona Tracker",
-    "description" : "Aplikasi tracker covid-19",
+    "description": "Tracker application for covid-19",
     "slug": "CoronaTracker",
     "privacy": "public",
     "platforms": [

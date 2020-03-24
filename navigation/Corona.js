@@ -5,7 +5,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Home from "../screens/Home";
 import Detail from "../screens/Detail";
 import Splash from "../screens/Splash";
-import Indonesia from "../screens/Indonesia";
 
 //import tema
 import * as theme from '../Theme';
@@ -22,64 +21,50 @@ function Corona(route) {
         initialRouteName="Splash"
         headerMode="screen"
         screenOptions={{
-            headerTintColor : 'white',
-            headerStyle : {
-                backgroundColor: theme.colors.background_secondary
-            },
+          headerTintColor: 'white',
+          headerStyle: {
+            backgroundColor: theme.colors.background_secondary
+          },
         }}
       >
-        <Stack.Screen 
-            name="Home" 
-            component={Home} 
-            screenOptions="default" 
-            options={{
-                title: 'Covid-19',
-                headerTitleAlign: 'center',
-                headerTitleStyle: {
-                  fontWeight: 'bold',
-                },
-                headerLeft: null,
-            }}
-            />
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          screenOptions="default"
+          options={{
+            title: 'Covid-19',
+            headerTitleAlign: 'center',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+            headerLeft: null,
+          }}
+        />
 
-        <Stack.Screen 
-          name="Detail" 
-          component={Detail} 
+        <Stack.Screen
+          name="Detail"
+          component={Detail}
           options={({ route }) => ({
-            title: route.params.pilneg,
+            title: route.params.selected,
             headerTitleStyle: {
               fontWeight: 'bold',
             },
             headerTitleAlign: 'center'
           })}
-          />
+        />
 
-        <Stack.Screen 
-          name="Splash" 
-          component={Splash} 
-          header = {null}
-          headerMode = "none"
+        <Stack.Screen
+          name="Splash"
+          component={Splash}
+          header={null}
+          headerMode="none"
           options={({ route }) => ({
             title: '',
-            headerStyle:{
+            headerStyle: {
               backgroundColor: theme.colors.background
             }
           })}
-          />
-
-        <Stack.Screen 
-            name="Indonesia" 
-            component={Indonesia}
-            options={{
-                title: 'Indonesia Status',
-                headerTitleAlign: 'center',
-                headerTitleStyle: {
-                  fontWeight: 'bold',
-                },
-            }}
-            />
-
-          
+        />
 
       </Stack.Navigator>
     </NavigationContainer>

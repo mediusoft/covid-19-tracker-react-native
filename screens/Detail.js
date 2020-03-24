@@ -1,57 +1,45 @@
-import React, { Component } from 'react'
-import { Text, StyleSheet, View, Animated, Image, Dimensions, ScrollView, TouchableOpacity ,BackHandler , ToastAndroid} from 'react-native'
+import React from 'react'
+import { Text, StyleSheet, View, Image, Dimensions, BackHandler, ToastAndroid } from 'react-native'
 import PTRView from 'react-native-pull-to-refresh/index';
-import moment from "moment";
 import Loading from 'react-native-whc-loading'
-
 import axios from 'axios';
 
 //import tema
 import * as theme from '../Theme';
+import { getValue } from '../utils/apiHelper';
+import { dateFormat } from '../utils/dateTimeHelper';
 
-const { width, height } = Dimensions.get('window');
-
-const format = amount => {
-    return Number(amount)
-        .toFixed()
-        .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
-  };
-
-
-class Detail extends React.Component{
+class Detail extends React.Component {
 
     static navigationOptions = ({ route }) => ({
-        title: `${route.pilneg}`,
-         headerTitleStyle : {textAlign: 'center',alignSelf:'center'},
-            headerStyle:{
-                backgroundColor:'white',
-            },
-        });
-        
-    constructor(props){
+        title: `${route.selected}`,
+        headerTitleStyle: { textAlign: 'center', alignSelf: 'center' },
+        headerStyle: {
+            backgroundColor: 'white',
+        },
+    });
+
+    constructor(props) {
         super(props);
         this.state = {
             detail_negara: {},
-            isError : false,
-            negaranya : "",
-            isLoading : true,
+            isError: false,
+            negaranya: "",
+            isLoading: true,
         };
-        
+
     }
 
     _refresh = () => {
         return new Promise((resolve) => {
             this.componentDidMount();
-            setTimeout(()=>{resolve()}, 1000)
+            setTimeout(() => { resolve() }, 1000)
         });
     }
 
 
-    //back button
     handleBackButton() {
-        // const { route , navigation } = this.props;
-        // this.navigation.navigate('Home');
-        ToastAndroid.show('Selalu Cuci Tanganmu', ToastAndroid.SHORT);
+        ToastAndroid.show('Always Wash Your Hands', ToastAndroid.SHORT);
 
         return true;
     }
@@ -60,168 +48,99 @@ class Detail extends React.Component{
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
     }
 
-    componentDidMount(){
+    componentDidMount() {
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
 
         const { params } = this.props.route;
-        const pilneg = params ? params.pilneg : null;
-        var negara = pilneg;
+        const selected = params ? params.selected : null;
+        var url = "https://covid19.mathdro.id/api/countries/" + selected;
 
-        if(pilneg == "Indonesia" || pilneg == "indonesia"){
-            var url = "https://indonesia-covid-19.mathdro.id/api";
+        //tampilkan loading
+        this.refs.loading.show(this.state.isLoading);
 
-            axios.get(url)
+        axios.get(url)
             .then(res => {
                 const datana = res.data;
-                this.setState({ 
-                    detail_negara : datana,
-                    isLoading: false,
-                    negaranya : pilneg
-                });
 
-                this.refs.loading.show(this.state.isLoading);
-                
-            })
-            
-        }else{
-            var url = "https://covid19.mathdro.id/api/countries/"+negara;
-
-            //tampilkan loading
-            this.refs.loading.show(this.state.isLoading);
-    
-            axios.get(url)
-            .then(res=>{
-                    const datana = res.data;
-    
-                    this.setState({
-                        detail_negara : datana,
-                        isLoading: false
-                    });
-    
-                    //update state loading
-                    this.refs.loading.show(this.state.isLoading);
-    
-                    // console.log(this.state.detail_negara);
-                    // console.log(negara);
-                    // console.log(url);
-                    // console.log(this.state.isError);
-            })
-            .catch(err=>{
-    
                 this.setState({
-                    isError : true, 
-                    negaranya : negara,
-                    isLoading: false,
+                    detail_negara: datana,
+                    isLoading: false
                 });
-    
+
                 //update state loading
                 this.refs.loading.show(this.state.isLoading);
-    
-                // console.log("error");
-                // console.log(this.state.isError);
             })
-        }
-        
+            .catch(err => {
+
+                this.setState({
+                    isError: true,
+                    negaranya: negara,
+                    isLoading: false,
+                });
+
+                //update state loading
+                this.refs.loading.show(this.state.isLoading);
+            })
     }
 
-    render(){
-        const isOk = this.state.isError;
+    render() {
+        const data = this.state.detail_negara;
+        if (this.state.isError == false) {
+            return (
+                <PTRView onRefresh={this._refresh} style={styles.container}>
+                    <Loading ref="loading" />
+                    <View>
+                        <Text style={styles.title}>Last Update</Text>
+                        <Text style={styles.subtitle}>{dateFormat({ date: this.state.detail_negara.lastUpdate, format: "DD-MMMM-YYYY HH:mm:ss" })}</Text>
 
-        if(this.state.negaranya == "Indonesia" || this.state.negaranya == "indonesia"){
-            return(
-            <PTRView onRefresh={this._refresh} style={styles.container}>
-                <Loading ref="loading"/>
-                <View>
-                    <Text style={styles.title}>Last Update</Text>
-                    <Text style={styles.subtitle}>{moment(Date(this.state.detail_negara.lastUpdate)).format('DD - MMMM - YYYY')}</Text>
-
-                    <View style={styles.rapih}>
-                        <View style={styles.kartuKuning} >
-                            <View>
-                                <Text style={styles.labelDesc}>Terinfeksi</Text>
-                                <Text style={styles.labelCount}>{format(this.state.detail_negara.jumlahKasus != undefined ? this.state.detail_negara.jumlahKasus : "")}</Text>
+                        <View style={styles.rapih}>
+                            <View style={styles.kartuKuning} >
+                                <View>
+                                    <Text style={styles.labelDesc}>Confirmed</Text>
+                                    <Text style={styles.labelCount}>{getValue({ data, type: "confirmed" })}</Text>
+                                </View>
+                                <Image source={require('../assets/images/masker.png')} style={styles.icn} />
                             </View>
-                            <Image source={require('../assets/images/masker.png')} style={styles.icn} />
-                        </View>
 
-                        <View style={styles.kartuHijau} >
-                            <View>
-                                <Text style={styles.labelDesc}>Sembuh</Text>
-                                <Text style={styles.labelCount}>{format(this.state.detail_negara.sembuh != undefined ? this.state.detail_negara.sembuh : "")}</Text>
+                            <View style={styles.recoveredCard} >
+                                <View>
+                                    <Text style={styles.labelDesc}>Recovered</Text>
+                                    <Text style={styles.labelCount}>{getValue({ data, type: "recovered" })}</Text>
+                                </View>
+                                <Image source={require('../assets/images/recovered.png')} style={styles.icn} />
                             </View>
-                            <Image source={require('../assets/images/sembuh.png')} style={styles.icn} />
-                        </View>
 
-                        <View style={styles.kartuMerah} >
-                            <View>
-                                <Text style={styles.labelDesc}>Meninggal</Text>
-                                <Text style={styles.labelCount}>{format(this.state.detail_negara.meninggal != undefined ? this.state.detail_negara.meninggal : "")}</Text>
+                            <View style={styles.kartuMerah} >
+                                <View>
+                                    <Text style={styles.labelDesc}>Death</Text>
+                                    <Text style={styles.labelCount}>{getValue({ data, type: "deaths" })}</Text>
+                                </View>
+                                <Image source={require('../assets/images/death.png')} style={styles.icn} />
                             </View>
-                            <Image source={require('../assets/images/mati.png')} style={styles.icn} />
                         </View>
                     </View>
-                </View>
-            </PTRView>
+                </PTRView>
             )
-        }else{
-            if(this.state.isError == false){
-                return (
-                    <PTRView onRefresh={this._refresh} style={styles.container}>
-                        <Loading ref="loading"/>
-                        <View>
-                            <Text style={styles.title}>Last Update</Text>
-                            <Text style={styles.subtitle}>{moment(Date(this.state.detail_negara.lastUpdate)).format('DD - MMMM - YYYY')}</Text>
-        
-                            <View style={styles.rapih}>
-                                <View style={styles.kartuKuning} >
-                                    <View>
-                                        <Text style={styles.labelDesc}>Terinfeksi</Text>
-                                        <Text style={styles.labelCount}>{format(this.state.detail_negara.confirmed != undefined ? this.state.detail_negara.confirmed.value : "")}</Text>
-                                    </View>
-                                    <Image source={require('../assets/images/masker.png')} style={styles.icn} />
-                                </View>
-        
-                                <View style={styles.kartuHijau} >
-                                    <View>
-                                        <Text style={styles.labelDesc}>Sembuh</Text>
-                                        <Text style={styles.labelCount}>{format(this.state.detail_negara.recovered != undefined ? this.state.detail_negara.recovered.value : "")}</Text>
-                                    </View>
-                                    <Image source={require('../assets/images/sembuh.png')} style={styles.icn} />
-                                </View>
-        
-                                <View style={styles.kartuMerah} >
-                                    <View>
-                                        <Text style={styles.labelDesc}>Meninggal</Text>
-                                        <Text style={styles.labelCount}>{format(this.state.detail_negara.deaths != undefined ? this.state.detail_negara.deaths.value : "")}</Text>
-                                    </View>
-                                    <Image source={require('../assets/images/mati.png')} style={styles.icn} />
-                                </View>
-                            </View>
-                        </View>
-                    </PTRView>
-                )
-            }else{
-                return(
-                    <View style={styles.containerErr}>
-                        <Loading ref="loading"/>
-                        <Image source={require('../assets/images/bacteria.png')} style={styles.icnErr} />
-                        <Text style={styles.errorTitle}>{this.state.negaranya}</Text>
-                        <Text style={styles.errorSubTitle}>Tidak Terdaftar Pada JHU Database</Text>
-                    </View>
-                )
-            }
+        } else {
+            return (
+                <View style={styles.containerErr}>
+                    <Loading ref="loading" />
+                    <Image source={require('../assets/images/bacteria.png')} style={styles.icnErr} />
+                    <Text style={styles.errorTitle}>{this.state.negaranya}</Text>
+                    <Text style={styles.errorSubTitle}>Not Registered in JHU Database</Text>
+                </View>
+            )
         }
-        
 
     }
 }
 
 const styles = StyleSheet.create({
-    container:{
+    container: {
         flex: 1,
         backgroundColor: theme.colors.background
     },
-    title:{
+    title: {
         fontSize: theme.ukuran.besar,
         color: theme.colors.putih,
         fontFamily: 'poppins-bold',
@@ -230,14 +149,14 @@ const styles = StyleSheet.create({
         paddingRight: theme.padding.kanan,
         marginTop: 25,
     },
-    containerErr:{
+    containerErr: {
         flex: 1,
         backgroundColor: theme.colors.background,
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: -100
     },
-    errorTitle:{
+    errorTitle: {
         fontSize: theme.ukuran.besar,
         color: theme.colors.putih,
         fontFamily: 'poppins-bold',
@@ -247,7 +166,7 @@ const styles = StyleSheet.create({
         marginTop: 30,
         textAlign: 'center'
     },
-    errorSubTitle:{
+    errorSubTitle: {
         fontSize: theme.ukuran.kecil,
         color: theme.colors.putih,
         fontFamily: 'poppins',
@@ -256,11 +175,11 @@ const styles = StyleSheet.create({
         paddingRight: theme.padding.kanan,
         textAlign: 'center'
     },
-    icnErr:{
+    icnErr: {
         width: 150,
         height: 150,
     },
-    subtitle:{
+    subtitle: {
         fontSize: theme.ukuran.kecil,
         color: theme.colors.putih,
         fontFamily: 'poppins',
@@ -268,12 +187,12 @@ const styles = StyleSheet.create({
         paddingLeft: theme.padding.kiri,
         paddingRight: theme.padding.kanan,
     },
-    rapih:{
+    rapih: {
         marginTop: 20,
         marginLeft: theme.padding.kiri,
         marginRight: theme.padding.kanan
     },
-    kartuKuning:{
+    kartuKuning: {
         flex: 1,
         backgroundColor: theme.colors.kuning,
         padding: 8,
@@ -284,7 +203,7 @@ const styles = StyleSheet.create({
         borderRadius: theme.sizes.radius,
         alignItems: 'center'
     },
-    kartuHijau:{
+    recoveredCard: {
         flex: 1,
         backgroundColor: theme.colors.hijau,
         padding: 8,
@@ -296,7 +215,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginTop: 20
     },
-    kartuMerah:{
+    kartuMerah: {
         flex: 1,
         backgroundColor: theme.colors.merah,
         padding: 8,
@@ -308,13 +227,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginTop: 20
     },
-    labelCount:{
+    labelCount: {
         fontFamily: 'poppins-bold',
         color: theme.colors.putih,
         fontSize: 30,
         marginTop: -5
     },
-    labelDesc:{
+    labelDesc: {
         fontFamily: 'poppins',
         color: theme.colors.putih,
         fontSize: theme.ukuran.medium,
