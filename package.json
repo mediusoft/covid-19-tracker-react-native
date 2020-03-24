@@ -2,6 +2,8 @@
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "expo start",
+    "pretty-all": "prettier --print-width 100 --write src/**/*.js",
+    "npm-install": "npm i --loglevel=error",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
@@ -13,6 +15,11 @@
     "@react-navigation/stack": "^5.0.5",
     "axios": "^0.19.2",
     "expo": "^36.0.0",
+    "expo-analytics-google": "^1.0.4",
+    "expo-localization": "~8.0.0",
+    "expo-location": "~8.0.0",
+    "expo-permissions": "~8.0.0",
+    "i18next": "19.3.3",
     "moment": "^2.24.0",
     "react": "16.9.0",
     "react-dom": "16.9.0",
@@ -28,8 +35,20 @@
     "react-native-whc-loading": "^1.0.3"
   },
   "devDependencies": {
-    "babel-preset-expo": "^8.0.0",
-    "@babel/core": "^7.0.0"
+    "@babel/core": "7.8.7",
+    "babel-eslint": "10.1.0",
+    "babel-plugin-module-resolver": "4.0.0",
+    "babel-preset-expo": "8.0.0",
+    "eslint": "6.8.0",
+    "eslint-config-airbnb": "18.1.0",
+    "eslint-config-prettier": "6.10.0",
+    "eslint-plugin-import": "2.20.1",
+    "eslint-plugin-jsx-a11y": "6.2.3",
+    "eslint-plugin-prettier": "3.1.2",
+    "eslint-plugin-react": "7.19.0",
+    "eslint-plugin-react-hooks": "2.5.0",
+    "prettier": "1.19.1",
+    "prop-types": "15.7.2"
   },
   "private": true
 }

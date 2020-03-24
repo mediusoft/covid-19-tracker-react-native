@@ -1,0 +1,17 @@
+{
+    "common": {
+        "confirmed": "Заражённые",
+        "recovered": "Выздоровевшие",
+        "death": "Умершие",
+        "updated": "Обновлено"
+    },
+    "home": {
+        "status": "Статус",
+        "statusGlobal": "Глобальный статус",
+        "check": "Проверить",
+        "selectCountry": "Выбрать страну"
+    },
+    "detail": {
+        "lastUpdated": "Последнее обновление"
+    }
+}

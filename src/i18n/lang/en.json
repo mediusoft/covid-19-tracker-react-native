@@ -1,0 +1,17 @@
+{
+    "common": {
+        "confirmed": "Confirmed",
+        "recovered": "Recovered",
+        "death": "Death",
+        "updated": "Updated"
+    },
+    "home": {
+        "status": "Status",
+        "statusGlobal": "Status Global",
+        "check": "CHECK",
+        "selectCountry": "Select country"
+    },
+    "detail": {
+        "lastUpdated": "Last Update"
+    }
+}

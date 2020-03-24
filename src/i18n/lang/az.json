@@ -1,0 +1,17 @@
+{
+    "common": {
+        "confirmed": "Təstiqlənən",
+        "recovered": "Sağalan",
+        "death": "Ölüm",
+        "updated": "Yenilənmə"
+    },
+    "home": {
+        "status": " statistika",
+        "statusGlobal": "Qlobal statistika",
+        "check": "YOXLA",
+        "selectCountry": "Ölkə Seç"
+    },
+    "detail": {
+        "lastUpdated": "Son Yenilənmə"
+    }
+}

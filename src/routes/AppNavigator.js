@@ -1,43 +1,39 @@
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 
-import Home from "../screens/Home";
-import Detail from "../screens/Detail";
-import Splash from "../screens/Splash";
-
-//import tema
-import * as theme from '../Theme';
+import * as theme from "theme";
+import { Home } from "screens/Home";
+import Detail from "screens/Detail";
+import Splash from "screens/Splash";
 
 const Stack = createStackNavigator();
 
-function Corona(route) {
+function AppNavigator({ defaultCountry }) {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        screenOptions={{
-          gestureEnabled: true
-        }}
         initialRouteName="Splash"
         headerMode="screen"
         screenOptions={{
-          headerTintColor: 'white',
+          gestureEnabled: true,
+          headerTintColor: "white",
           headerStyle: {
             backgroundColor: theme.colors.background_secondary
-          },
+          }
         }}
       >
         <Stack.Screen
           name="Home"
-          component={Home}
+          component={props => <Home defaultCountry={defaultCountry} {...props} />}
           screenOptions="default"
           options={{
-            title: 'Covid-19',
-            headerTitleAlign: 'center',
+            title: "Covid-19",
+            headerTitleAlign: "center",
             headerTitleStyle: {
-              fontWeight: 'bold',
+              fontWeight: "bold"
             },
-            headerLeft: null,
+            headerLeft: null
           }}
         />
 
@@ -47,9 +43,9 @@ function Corona(route) {
           options={({ route }) => ({
             title: route.params.selected,
             headerTitleStyle: {
-              fontWeight: 'bold',
+              fontWeight: "bold"
             },
-            headerTitleAlign: 'center'
+            headerTitleAlign: "center"
           })}
         />
 
@@ -58,17 +54,16 @@ function Corona(route) {
           component={Splash}
           header={null}
           headerMode="none"
-          options={({ route }) => ({
-            title: '',
+          options={() => ({
+            title: "",
             headerStyle: {
               backgroundColor: theme.colors.background
             }
           })}
         />
-
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
-export default Corona;
+export default AppNavigator;
