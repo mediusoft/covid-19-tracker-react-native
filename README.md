@@ -29,11 +29,13 @@ _Found it useful? Want more updates?_
 # Used Libraries
 - [x] React Native Dropdown [link](https://www.npmjs.com/package/react-native-material-dropdown)
 - [x] WHC Loading [link](https://github.com/netyouli/react-native-whc-loading)
+- [x] OpenCage Geocoder [link](https://opencagedata.com/)
+- [x] Expo-location
 - [x] Pull To Refresh
 - [x] i18Next
-- [x] Expo-location
-- [x] OpenCage Geocoder [link](https://opencagedata.com/)
 - [x] Axios
+- [x] Prettier
+- [x] Eslint
 
 # Screenshoot 
 
