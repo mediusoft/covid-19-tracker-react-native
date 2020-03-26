@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "Corona Tracker",
+    "name": "Covy",
     "description": "Tracker application for covid-19",
-    "slug": "CoronaTracker",
+    "slug": "covy",
     "privacy": "public",
     "platforms": [
       "ios",
@@ -10,7 +10,7 @@
     ],
     "version": "3.0.0",
     "orientation": "portrait",
-    "icon": "./src/assets/images/bacteria.png",
+    "icon": "./src/assets/images/icon_512.png",
     "updates": {
       "fallbackToCacheTimeout": 0
     },
@@ -19,19 +19,16 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.rbayuokt.coronatracker",
+      "bundleIdentifier": "com.mediusoft.covy",
       "buildNumber": "1.0.0"
     },
     "android": {
-      "package": "com.rbayuokt.coronatracker",
+      "package": "com.mediusoft.covy",
       "versionCode": 3,
       "permissions": [
-        "CAMERA",
-        "READ_CONTACTS",
-        "RECORD_AUDIO",
-        "READ_PHONE_STATE"
+        "LOCATION"
       ]
     },
-    "githubUrl": "https://github.com/mediusoft/covid-19-tracker-react-native"
+    "githubUrl": "https://github.com/mediusoft/covy"
   }
 }
