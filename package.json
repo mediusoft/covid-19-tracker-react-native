@@ -4,9 +4,8 @@
     "start": "expo start",
     "pretty-all": "prettier --print-width 100 --write src/**/*.js",
     "npm-install": "npm i --loglevel=error",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web",
+    "production-build:android": "expo build:android --release-channel alpha-1.0.0 --config app.json --type app-bundle",
+    "production-build:ios": "expo build:ios --release-channel alpha-1.0.0 --config app.json",
     "eject": "expo eject"
   },
   "dependencies": {

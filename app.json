@@ -29,7 +29,7 @@
       "package": "com.mediusoft.covy",
       "versionCode": 1,
       "permissions": [
-        "LOCATION"
+        "ACCESS_FINE_LOCATION",
       ]
     },
     "githubUrl": "https://github.com/mediusoft/covy"
