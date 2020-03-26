@@ -1,5 +1,6 @@
 {
     "common": {
+        "stayAtHome": "#оставайсядома",
         "confirmed": "Заражённые",
         "recovered": "Выздоровевшие",
         "death": "Умершие",

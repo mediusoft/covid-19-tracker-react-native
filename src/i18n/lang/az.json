@@ -1,5 +1,6 @@
 {
     "common": {
+        "stayAtHome": "#evdəqal",
         "confirmed": "Təstiqlənən",
         "recovered": "Sağalan",
         "death": "Ölüm",

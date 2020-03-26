@@ -10,6 +10,8 @@ import { getCurrrentCountryName } from "services/apiServices";
 import * as Location from "expo-location";
 import * as Permissions from "expo-permissions";
 
+console.disableYellowBox = true;
+
 enableScreens();
 
 if (UIManager.setLayoutAnimationEnabledExperimental) {

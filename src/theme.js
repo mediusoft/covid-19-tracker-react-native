@@ -25,9 +25,9 @@ const sizes = {
 
 const size = {
   large: 24,
-  sedang: 16,
   medium: 18,
-  kecil: 14
+  sedang: 16,
+  small: 14
 };
 
 export { colors, sizes, size, padding };

@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
     textAlign: "center"
   },
   errorSubTitle: {
-    fontSize: theme.size.kecil,
+    fontSize: theme.size.small,
     color: theme.colors.white,
     fontFamily: "poppins",
     opacity: 0.87,
@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
     height: 150
   },
   subtitle: {
-    fontSize: theme.size.kecil,
+    fontSize: theme.size.small,
     color: theme.colors.white,
     fontFamily: "poppins",
     opacity: 0.67,

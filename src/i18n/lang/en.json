@@ -1,5 +1,6 @@
 {
     "common": {
+        "stayAtHome": "#stayathome",
         "confirmed": "Confirmed",
         "recovered": "Recovered",
         "death": "Death",

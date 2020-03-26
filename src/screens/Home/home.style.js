@@ -85,7 +85,7 @@ export const styles = StyleSheet.create({
   },
   labelDesc: {
     color: theme.colors.white,
-    fontSize: theme.size.kecil,
+    fontSize: theme.size.small,
     textAlign: "center",
     fontFamily: "poppins",
     marginTop: -5

@@ -1,5 +1,6 @@
 import React from "react";
 import { Text, StyleSheet, View, Image } from "react-native";
+import { t } from "i18n";
 
 import * as theme from "theme";
 
@@ -24,10 +25,10 @@ class Splash extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.conSplash}>
-          <Image source={require("assets/images/bacteria.png")} style={styles.icnErr} />
+          <Image source={require("assets/images/icon_512.png")} style={styles.icnErr} />
           <Text style={styles.title}>COVY</Text>
-          <Text style={styles.subTitle}>Made with ♥ Mediusoft</Text>
-          <Text style={styles.subTitle}>#evdəqal</Text>
+          <Text style={styles.subTitle}>{`<> with ♥ by Mediusoft`}</Text>
+          <Text style={styles.subTitle}>{t("stayAtHome")}</Text>
         </View>
       </View>
     );
@@ -63,7 +64,7 @@ const styles = StyleSheet.create({
     textAlign: "center"
   },
   subTitle: {
-    fontSize: theme.size.kecil,
+    fontSize: theme.size.small,
     color: theme.colors.white,
     fontFamily: "poppins",
     opacity: 0.87,
