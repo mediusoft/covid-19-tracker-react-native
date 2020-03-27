@@ -15,6 +15,11 @@ export const supportedLocales = {
     name: "Рус",
     translationFileLoader: () => require("./lang/ru.json"),
     momentLocaleLoader: () => Promise.resolve()
+  },
+  tr: {
+    name: "Tür",
+    translationFileLoader: () => require("./lang/tr.json"),
+    momentLocaleLoader: () => Promise.resolve()
   }
 };
 

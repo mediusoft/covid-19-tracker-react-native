@@ -1,0 +1,18 @@
+{
+    "common": {
+        "stayAtHome": "#evdekal",
+        "confirmed": "Onaylanmış",
+        "recovered": "İyileşen",
+        "death": "Ölüm",
+        "updated": "Güncelenme"
+    },
+    "home": {
+        "status": " durum",
+        "statusGlobal": "Global durum",
+        "check": "UYGULA",
+        "selectCountry": "Ülke Seç"
+    },
+    "detail": {
+        "lastUpdate": "Son Güncellenme"
+    }
+}
